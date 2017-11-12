@@ -12,6 +12,7 @@ The goals / steps of this project are the following:
 
 ### Reflection
 
+**Pipeline**
 My pipeline is located in the `detect_lane_lines()` function. It consists out of 6 steps. We'll walk through the 
 pipeline with the following example image.
 
@@ -47,8 +48,13 @@ pipeline with the following example image.
 
 ![lines](./test_images/solidWhiteLines.jpg "Lines")
 
+   I've modified the `draw_lines()` function to first calculate the slope of a line. `slope = (y2 - y1) / (x2 - x1)` this value can either be positive or negative. If it's positive this indicates a line on the right side, else it's on the left side. For every line I calculate the mean value including the previous lines. This is done by calling the `calculate_list_mean` function. We pass it the existing `right_collection` (or the `left_collection` depending on the slope value), append the new line value and return an updated `right_collection` and the `right_mean`. These values contain the `right_collection` with the new value appended. The function itself accepts a `threshold` argument. This value limits the amount of previous lines that will be stored in memory. Right now I've chosen a `threshold` value of `50`. This means that the `right_collection` can not contain more than 50 items. The `right_mean` is calculated by summing all the items in the `right_collection` and dividing the number between the length of the collection `len(right_collection`. This technique is heavier on the calculations-side but eliminates a lot of jitter on the result video.  
+     
+   Once we've been able to pinpoint the mean value for the current line, we extend the line based on it's vector to always start from the bottom of the image to the center. This is done by recalculating the representation of a line `y = mx + b` to an `x` value. We know the y value (bottom of the image or halfway) we only need to match it to the corresponding `x` value. The new function looks like `x = (y - b) / m`. By passing the wanted `y` value and the vector to the `calculate_for_y` we get the corresponding `x` value. This allows us to draw a line starting from the bottom and extending to the middle of the image. 
+
 6. Merge lines with original image
 
    Last up we merge the original image with the calculated lines using the `weighted_img()` function.  
 
 ![final](/test_images_output/solidWhiteRight.jpg "Final")
+
