@@ -13,6 +13,7 @@ The goals / steps of this project are the following:
 ### Reflection
 
 **Pipeline**
+
 My pipeline is located in the `detect_lane_lines()` function. It consists out of 6 steps. We'll walk through the 
 pipeline with the following example image.
 
@@ -58,3 +59,13 @@ pipeline with the following example image.
 
 ![final](/test_images_output/solidWhiteRight.jpg "Final")
 
+**Shortcomings**
+
+* The current technique used has a very hard time identifying curved lines. 
+* It's computational heavy
+* It uses global variables, these have to be reset before every line calculation
+
+**Possible imporvements**
+
+* Use a more OOP oriented way of calculating the lines. This would eliminate the use of global variables.
+* We could use a Generalised Hough Transform to be able track the curved lines better. 
