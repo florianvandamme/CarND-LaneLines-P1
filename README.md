@@ -23,7 +23,7 @@ pipeline with the following example image.
 1. Converting an image to Grayscale
 Uses the `cv2.cvtColor` function for transforming the incoming image to a grayscale format. 
 
-[grayScale]: ./test_images/solidWhiteGray.jpg "Grayscale" 
+![grayScale](/test_images/solidWhiteGray.jpg?raw=true "Grayscale" )
 
 2. Apply an extra Gaussian Blur
 The Canny Edge detection also applies a Gaussian Blur but we apply one extra for better results. In this case
